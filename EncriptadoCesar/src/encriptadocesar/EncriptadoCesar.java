@@ -5,11 +5,12 @@ import javax.swing.JOptionPane;
 public class EncriptadoCesar extends javax.swing.JFrame {
 
     public EncriptadoCesar() {
-        initComponents();
+        initComponents(); // Método para inicializar componentes de la interfaz gráfica
     }
 
+    // Método para inicializar los componentes de la interfaz gráfica
     private void initComponents() {
-
+        // Declaración de componentes de la interfaz gráfica
         jScrollPane1 = new javax.swing.JScrollPane();
         inputTextArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -20,34 +21,37 @@ public class EncriptadoCesar extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         outputTextArea = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); // Cierra la aplicación al cerrar la ventana
 
+        // Configuración del área de texto de entrada
         inputTextArea.setColumns(20);
         inputTextArea.setRows(5);
         jScrollPane1.setViewportView(inputTextArea);
 
-        jLabel1.setText("Mensaje:");
+        jLabel1.setText("Mensaje:"); // Etiqueta para el área de texto de entrada
 
-        jLabel2.setText("Clave:");
+        jLabel2.setText("Clave:"); // Etiqueta para el campo de texto de la clave
 
-        encryptButton.setText("Encriptar");
+        encryptButton.setText("Encriptar"); // Botón para encriptar el mensaje
         encryptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 encryptButtonActionPerformed(evt);
             }
         });
 
-        decryptButton.setText("Desencriptar");
+        decryptButton.setText("Desencriptar"); // Botón para desencriptar el mensaje
         decryptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 decryptButtonActionPerformed(evt);
             }
         });
 
+        // Configuración del área de texto de salida
         outputTextArea.setColumns(20);
         outputTextArea.setRows(5);
         jScrollPane2.setViewportView(outputTextArea);
 
+        // Configuración del diseño de la interfaz gráfica
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,42 +96,47 @@ public class EncriptadoCesar extends javax.swing.JFrame {
         pack();
     }
 
+    // Método para realizar la encriptación al hacer clic en el botón de encriptar
     private void encryptButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        String message = inputTextArea.getText();
-        int key = Integer.parseInt(keyTextField.getText());
-        String encryptedMessage = encrypt(message, key);
-        outputTextArea.setText(encryptedMessage);
+        String message = inputTextArea.getText(); // Obtiene el mensaje ingresado por el usuario
+        int key = Integer.parseInt(keyTextField.getText()); // Obtiene la clave ingresada por el usuario
+        String encryptedMessage = encrypt(message, key); // Encripta el mensaje
+        outputTextArea.setText(encryptedMessage); // Muestra el mensaje encriptado en el área de texto de salida
     }
 
+    // Método para realizar la desencriptación al hacer clic en el botón de desencriptar
     private void decryptButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        String encryptedMessage = inputTextArea.getText();
-        int key = Integer.parseInt(keyTextField.getText());
-        String decryptedMessage = decrypt(encryptedMessage, key);
-        outputTextArea.setText(decryptedMessage);
+        String encryptedMessage = inputTextArea.getText(); // Obtiene el mensaje encriptado ingresado por el usuario
+        int key = Integer.parseInt(keyTextField.getText()); // Obtiene la clave ingresada por el usuario
+        String decryptedMessage = decrypt(encryptedMessage, key); // Desencripta el mensaje
+        outputTextArea.setText(decryptedMessage); // Muestra el mensaje desencriptado en el área de texto de salida
     }
 
-private String encrypt(String message, int key) {
-    StringBuilder result = new StringBuilder();
+    // Método para encriptar el mensaje utilizando el cifrado César
+    private String encrypt(String message, int key) {
+        StringBuilder result = new StringBuilder();
 
-    for (char character : message.toCharArray()) {
-        if (Character.isLetter(character)) {
-            char base = Character.isLowerCase(character) ? 'a' : 'A';
-            int offset = character - base;
-            int encryptedOffset = (offset + key) % 26;
-            char encryptedChar = (char) (base + encryptedOffset);
-            result.append(encryptedChar);
-        } else {
-            result.append(character);
+        for (char character : message.toCharArray()) {
+            if (Character.isLetter(character)) {
+                char base = Character.isLowerCase(character) ? 'a' : 'A';
+                int offset = character - base;
+                int encryptedOffset = (offset + key) % 26;
+                char encryptedChar = (char) (base + encryptedOffset);
+                result.append(encryptedChar);
+            } else {
+                result.append(character); // Conserva los caracteres que no son letras
+            }
         }
+
+        return result.toString(); // Devuelve el mensaje encriptado
     }
 
-    return result.toString();
-}
-
+    // Método para desencriptar el mensaje utilizando el cifrado César
     private String decrypt(String message, int key) {
-        return encrypt(message, 26 - key); // Decryption is just encryption with the inverse key
+        return encrypt(message, 26 - key); // La desencriptación es simplemente la encriptación con la clave inversa
     }
 
+    // Método principal para ejecutar la aplicación
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -155,12 +164,12 @@ private String encrypt(String message, int key) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EncriptadoCesar().setVisible(true);
+                new EncriptadoCesar().setVisible(true); // Crea y muestra la interfaz gráfica
             }
         });
     }
 
-    // Variables declaration
+    // Declaración de variables de la interfaz gráfica
     private javax.swing.JButton decryptButton;
     private javax.swing.JButton encryptButton;
     private javax.swing.JTextArea inputTextArea;
@@ -170,6 +179,5 @@ private String encrypt(String message, int key) {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField keyTextField;
     private javax.swing.JTextArea outputTextArea;
-    // End of variables declaration
+    // Fin de la declaración de variables
 }
-
